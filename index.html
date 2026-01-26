@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Satisfacción - INIMMED</title>
+  <style>
+    /* ESTILOS DE INIMMED (Limpio y Profesional) */
+    :root { --primary: #0056b3; --bg: #f0f2f5; --star-color: #ffd700; --star-empty: #ddd; }
+    body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: #333; }
+    
+    .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    
+    header { text-align: center; margin-bottom: 30px; }
+    h1 { margin: 0; font-size: 1.5rem; color: var(--primary); }
+    p.subtitle { color: #666; font-size: 0.9rem; margin-top: 5px; }
+
+    .form-group { margin-bottom: 25px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
+    .form-group:last-child { border-bottom: none; }
+    
+    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 1rem; }
+    .question-desc { display: block; font-size: 0.85rem; color: #666; margin-bottom: 10px; font-weight: normal; }
+    
+    input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; box-sizing: border-box; }
+    textarea { resize: vertical; }
+
+    /* ESTILOS DE ESTRELLAS */
+    .rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; }
+    .rating input { display: none; }
+    .rating label { cursor: pointer; font-size: 2rem; color: var(--star-empty); transition: color 0.2s; margin: 0; }
+    /* Al pasar el mouse o seleccionar, se iluminan */
+    .rating label:hover, .rating label:hover ~ label,
+    .rating input:checked ~ label { color: var(--star-color); }
+
+    button { width: 100%; padding: 15px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+    button:hover { background-color: #004494; }
+    
+    #message { text-align: center; margin-top: 20px; font-weight: bold; color: green; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Encuesta de Servicio Técnico</h1>
+      <p class="subtitle">Ayúdanos a mejorar la calidad de nuestro servicio</p>
+    </header>
+
+    <form name="submit-to-google-sheet">
+      
+      <input type="hidden" name="Ingeniero" id="ingField" value="General">
+
+      <div class="form-group">
+        <label>Hospital / Cliente</label>
+        <input name="Cliente" type="text" placeholder="Nombre del hospital o encargado" required>
+      </div>
+
+      <div class="form-group">
+        <label>1. Vestimenta (Imagen y Protocolo)</label>
+        <span class="question-desc">¿El técnico se presentó portando su uniforme completo, limpio y cumpliendo protocolos?</span>
+        <div class="rating">
+          <input type="radio" name="Vestimenta" value="5" id="v5" required><label for="v5">★</label>
+          <input type="radio" name="Vestimenta" value="4" id="v4"><label for="v4">★</label>
+          <input type="radio" name="Vestimenta" value="3" id="v3"><label for="v3">★</label>
+          <input type="radio" name="Vestimenta" value="2" id="v2"><label for="v2">★</label>
+          <input type="radio" name="Vestimenta" value="1" id="v1"><label for="v1">★</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>2. Puntualidad</label>
+        <span class="question-desc">¿El personal llegó en el horario acordado o notificó el retraso?</span>
+        <div class="rating">
+          <input type="radio" name="Puntualidad" value="5" id="p5" required><label for="p5">★</label>
+          <input type="radio" name="Puntualidad" value="4" id="p4"><label for="p4">★</label>
+          <input type="radio" name="Puntualidad" value="3" id="p3"><label for="p3">★</label>
+          <input type="radio" name="Puntualidad" value="2" id="p2"><label for="p2">★</label>
+          <input type="radio" name="Puntualidad" value="1" id="p1"><label for="p1">★</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>3. Comunicación</label>
+        <span class="question-desc">¿Explicó claramente el diagnóstico y las acciones a realizar?</span>
+        <div class="rating">
+          <input type="radio" name="Comunicacion" value="5" id="c5" required><label for="c5">★</label>
+          <input type="radio" name="Comunicacion" value="4" id="c4"><label for="c4">★</label>
+          <input type="radio" name="Comunicacion" value="3" id="c3"><label for="c3">★</label>
+          <input type="radio" name="Comunicacion" value="2" id="c2"><label for="c2">★</label>
+          <input type="radio" name="Comunicacion" value="1" id="c1"><label for="c1">★</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>4. Capacidad Técnica</label>
+        <span class="question-desc">¿Demostró conocimiento y habilidad para resolver el problema eficientemente?</span>
+        <div class="rating">
+          <input type="radio" name="Capacidad" value="5" id="t5" required><label for="t5">★</label>
+          <input type="radio" name="Capacidad" value="4" id="t4"><label for="t4">★</label>
+          <input type="radio" name="Capacidad" value="3" id="t3"><label for="t3">★</label>
+          <input type="radio" name="Capacidad" value="2" id="t2"><label for="t2">★</label>
+          <input type="radio" name="Capacidad" value="1" id="t1"><label for="t1">★</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>5. Servicio (Actitud y Atención)</label>
+        <span class="question-desc">¿Cómo calificaría la amabilidad y profesionalismo durante la visita?</span>
+        <div class="rating">
+          <input type="radio" name="Servicio" value="5" id="s5" required><label for="s5">★</label>
+          <input type="radio" name="Servicio" value="4" id="s4"><label for="s4">★</label>
+          <input type="radio" name="Servicio" value="3" id="s3"><label for="s3">★</label>
+          <input type="radio" name="Servicio" value="2" id="s2"><label for="s2">★</label>
+          <input type="radio" name="Servicio" value="1" id="s1"><label for="s1">★</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>6. Comentarios Adicionales</label>
+        <textarea name="Comentarios" rows="4" placeholder="Escribe aquí..."></textarea>
+      </div>
+
+      <button type="submit">Enviar Encuesta</button>
+    </form>
+    <div id="message" class="hidden">
+      <h3>¡Gracias!</h3>
+      <p>Tu evaluación ha sido registrada exitosamente.</p>
+    </div>
+  </div>
+
+  <script>
+    // --- IMPORTANTE: PEGA AQUÍ TU URL DE APPS SCRIPT ---
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxcFr4mASgjxuFKVEXsxBP8hM67zHK5DRqMyHHsby3yAE19qlRszltWq7MHWoImQePOnQ/exec'; 
+    // ---------------------------------------------------
+
+    const form = document.forms['submit-to-google-sheet'];
+    const message = document.getElementById('message');
+
+    // Lógica para detectar Ingeniero desde la URL (ej. ?ing=Juan)
+    const urlParams = new URLSearchParams(window.location.search);
+    const ingenieroParam = urlParams.get('ing');
+    if(ingenieroParam) {
+      document.getElementById('ingField').value = ingenieroParam;
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = "Enviando...";
+      btn.disabled = true;
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            form.classList.add('hidden');
+            message.classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            btn.innerHTML = "Error. Intenta de nuevo.";
+            btn.disabled = false;
+        });
+    });
+  </script>
+</body>
+</html>
