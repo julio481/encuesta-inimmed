@@ -49,7 +49,16 @@
 
     <form name="submit-to-google-sheet">
       
-      <input type="hidden" name="Ingeniero" id="ingField" value="General">
+      <div class="form-group">
+        <label>Ingeniero de Servicio</label>
+        <select name="Ingeniero" id="ingField" required>
+          <option value="" disabled selected>Selecciona quién realizó el servicio...</option>
+          <option value="Ing. Juan Pérez">Ing. Juan Pérez</option>
+          <option value="Ing. María López">Ing. María López</option>
+          <option value="Ing. Pedro Ruiz">Ing. Pedro Ruiz</option>
+          <option value="General">Otro / General</option>
+        </select>
+      </div>
 
       <div class="form-group">
         <label>Hospital / Cliente</label>
@@ -164,4 +173,5 @@
     });
   </script>
 </body>
+
 </html>
